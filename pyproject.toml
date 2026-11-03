@@ -1,10 +1,10 @@
 [project]
 name = "issus"
 version = "0.1.0"
-description = "Solana's sBPF ELF loader and VM, rebuilt in python and checkeck against Agave's results on the conformance fixtures."
+description = "Solana's sBPF ELF loader and VM, rebuilt in Python and checked against Agave's results on the conformance fixtures."
 readme = "README.md"
 authors = [
-    { name = "Roayt", email = "291496372+Roayt@users.noreply.github.com" }
+    { name = "Royat", email = "291496372+Roayt@users.noreply.github.com" }
 ]
 requires-python = ">=3.13"
 dependencies = [
