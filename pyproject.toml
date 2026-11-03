@@ -1,7 +1,7 @@
 [project]
 name = "issus"
 version = "0.1.0"
-description = "Add your description here"
+description = "Solana's sBPF ELF loader and VM, rebuilt in python and checkeck against Agave's results on the conformance fixtures."
 readme = "README.md"
 authors = [
     { name = "Roayt", email = "291496372+Roayt@users.noreply.github.com" }
