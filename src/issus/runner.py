@@ -20,18 +20,6 @@ def count_err_codes(fixture_dir):
     return err_code_counts
 
 
-err_code_counts = count_err_codes(
-    Path.home() / "issus-data" / "test-vectors" / "elf_loader" / "fixtures"
-)
-total = err_code_counts.total()
-print(f"Total no of file:{total}")
-rows = sorted(err_code_counts.items())
-
-
-for err_code, count in rows:
-    print(f"err_code: {err_code}: {count}")
-
-
 def compare_fixtures(fixture_dir):
     fixture_paths = sorted(Path(fixture_dir).glob("*.fix"))
     outcomes = []
@@ -63,15 +51,7 @@ def compare_fixtures(fixture_dir):
     return outcome_counts
 
 
-if __name__ == "__main__":
-    outcome_counts = compare_fixtures(
-        Path.home() / "issus-data" / "test-vectors" / "elf_loader" / "fixtures"
-    )
-    total = outcome_counts.total()
+   
 
-    print(
-        f"Total:{total}\n"
-        f"Passed:{outcome_counts['passed']}\n"
-        f"Failed:{outcome_counts['failed']}\n"
-        f"Not Implemented:{outcome_counts['not implemented']}"
-    )
+    
+  
