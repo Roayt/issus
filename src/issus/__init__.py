@@ -4,17 +4,16 @@ from issus.runner import compare_fixtures, count_err_codes
 
 
 def main():
-    parser=argparse.ArgumentParser()
-    subparsers=parser.add_subparsers(dest="command",required=True)
-    run_parser=subparsers.add_parser('run')
-    run_parser.add_argument('folder')
-    
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    run_parser = subparsers.add_parser("run")
+    run_parser.add_argument("folder")
+    run_parser.add_argument("--only", default="")
 
-    args=parser.parse_args()
+    args = parser.parse_args()
 
-
-    err_code_counts=count_err_codes(args.folder)
-    outcome_counts=compare_fixtures(args.folder)
+    err_code_counts = count_err_codes(args.folder, args.only)
+    outcome_counts = compare_fixtures(args.folder, args.only)
 
     total = err_code_counts.total()
     print(f"Total no of file:{total}")
@@ -23,7 +22,6 @@ def main():
     for err_code, count in rows:
         print(f"err_code: {err_code}: {count}")
 
-
     total = outcome_counts.total()
 
     print(
@@ -31,5 +29,4 @@ def main():
         f"Passed:{outcome_counts['passed']}\n"
         f"Failed:{outcome_counts['failed']}\n"
         f"Not Implemented:{outcome_counts['not implemented']}"
-
     )

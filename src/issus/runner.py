@@ -5,11 +5,26 @@ from issus.fixture import parse_fixture
 from issus.loader import load
 
 
-def count_err_codes(fixture_dir):
-    fixture_paths = sorted(Path(fixture_dir).glob("*.fix"))
+def list_fixture_path(folder, prefix):
+    all_paths = Path(folder).glob("*.fix")
+
+    matching_paths = []
+    for path in all_paths:
+        name = path.name
+        match = name.startswith(prefix)
+        if match:
+            matching_paths.append(path)
+
+    return sorted(matching_paths)
+
+
+def count_err_codes(folder, prefix):
+
+    fixture_paths = list_fixture_path(folder, prefix)
+
     error_code_list = []
 
-    for fixture_path in sorted(fixture_paths):
+    for fixture_path in fixture_paths:
         fixture = parse_fixture(fixture_path)
         error_code = fixture.output.err_code
 
@@ -20,8 +35,8 @@ def count_err_codes(fixture_dir):
     return err_code_counts
 
 
-def compare_fixtures(fixture_dir):
-    fixture_paths = sorted(Path(fixture_dir).glob("*.fix"))
+def compare_fixtures(folder, prefix):
+    fixture_paths = list_fixture_path(folder, prefix)
     outcomes = []
     for fixture_path in fixture_paths:
         parsed_fixture = parse_fixture(fixture_path)
@@ -49,9 +64,3 @@ def compare_fixtures(fixture_dir):
     outcome_counts = Counter(outcomes)
 
     return outcome_counts
-
-
-   
-
-    
-  
