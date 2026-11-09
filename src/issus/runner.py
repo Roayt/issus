@@ -38,6 +38,7 @@ def count_err_codes(folder, prefix):
 def compare_fixtures(folder, prefix):
     fixture_paths = list_fixture_path(folder, prefix)
     outcomes = []
+    failures = []
     for fixture_path in fixture_paths:
         parsed_fixture = parse_fixture(fixture_path)
         elf_data = parsed_fixture.input.elf_data
@@ -46,6 +47,7 @@ def compare_fixtures(folder, prefix):
 
         try:
             actual = load(elf_data, features, deploy_checks)
+
         except NotImplementedError:
             outcomes.append("not implemented")
 
@@ -59,8 +61,17 @@ def compare_fixtures(folder, prefix):
                 parsed_fixture.output.calldests_hash,
             )
 
-            outcomes.append("passed" if expected == actual else "failed")
+            if actual != expected:
+                filename = fixture_path.name
+                expected_outcome = expected
+                actual_value = actual
+
+                failure_object = filename, expected_outcome, actual_value
+                failures.append(failure_object)
+                outcomes.append("failed")
+            else:
+                outcomes.append("passed")
 
     outcome_counts = Counter(outcomes)
 
-    return outcome_counts
+    return outcome_counts, failures

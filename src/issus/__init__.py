@@ -13,7 +13,7 @@ def main():
     args = parser.parse_args()
 
     err_code_counts = count_err_codes(args.folder, args.only)
-    outcome_counts = compare_fixtures(args.folder, args.only)
+    outcome_counts, failure = compare_fixtures(args.folder, args.only)
 
     total = err_code_counts.total()
     print(f"Total no of file:{total}")
@@ -30,3 +30,10 @@ def main():
         f"Failed:{outcome_counts['failed']}\n"
         f"Not Implemented:{outcome_counts['not implemented']}"
     )
+
+    for name, expected, actual in failure:
+        print(
+            f"failed file: {name}\n"
+            f"expected output: {expected}\n"
+            f"actual outcome: {actual}"
+        )
