@@ -71,7 +71,6 @@ def compare_fixtures(folder, prefix):
                 outcomes.append("failed")
             else:
                 outcomes.append("passed")
-
     outcome_counts = Counter(outcomes)
 
     return outcome_counts, failures
