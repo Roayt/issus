@@ -1,7 +1,7 @@
 import argparse
 import sys
-
 from collections import Counter
+
 from issus.runner import compare_fixtures, count_err_codes
 
 fields = "err_code", "rodata_hash", "text_cnt", "text_off", "entry_pc", "calldests_hash"
