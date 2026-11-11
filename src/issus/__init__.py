@@ -22,6 +22,8 @@ def main():
     outcome_counts, failures = compare_fixtures(args.folder, args.only)
 
     total = err_code_counts.total()
+    if total == 0:
+        sys.exit("The folder path or a prefix doesn't match any .fix file")
     print(f"Total no of file:{total}")
     rows = sorted(err_code_counts.items())
 
