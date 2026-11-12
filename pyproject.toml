@@ -1,13 +1,17 @@
 [project]
 name = "issus"
 version = "0.1.0"
-description = "Solana's sBPF ELF loader and VM, rebuilt in python and checkeck against Agave's results on the conformance fixtures."
+description = "Solana's sBPF ELF loader and VM, rebuilt in Python and checked against Agave's results on the conformance fixtures."
 readme = "README.md"
 authors = [
-    { name = "Roayt", email = "291496372+Roayt@users.noreply.github.com" }
+    { name = "Royat", email = "291496372+Roayt@users.noreply.github.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "mmh3>=5.3.1",
+    "protobuf>=7.36.2",
+    "xxhash>=4.0.2",
+]
 
 [project.scripts]
 issus = "issus:main"
@@ -15,3 +19,9 @@ issus = "issus:main"
 [build-system]
 requires = ["uv_build>=0.11.19,<0.12.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
