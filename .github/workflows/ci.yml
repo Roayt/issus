@@ -1,0 +1,23 @@
+name: Issus Action Runner
+on: [push,pull_request]
+jobs:
+ run-tests:
+   runs-on: ubuntu-latest
+   steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+    - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+
+    - name: Install dependencies
+      run: uv sync --locked --all-extras --dev 
+    
+    - name: Run tests 
+      run: uv run pytest tests
+
+    - name: Get Fixtures 
+      run:  git clone --filter=blob:none --sparse https://github.com/firedancer-io/test-vectors.git 
+    - run:  git -C test-vectors sparse-checkout set elf_loader
+    - run:  git -C test-vectors checkout 72bf4bd
+    - run:  git -C test-vectors rev-parse --short HEAD
+    - run: ls test-vectors/elf_loader/fixtures | wc -l
+    - run: uv run issus run test-vectors/elf_loader/fixtures --min-pass $(cat tests/baseline.txt)
