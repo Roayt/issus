@@ -1,7 +1,7 @@
-def byte_reader(raw_byte, off_set, size):
+def read_little_endian(data, offset, size):
 
-    t = raw_byte[off_set : off_set + size]
+    field_bytes = data[offset : offset + size]
 
-    calculated_decimal = int.from_bytes(t, byteorder="little")
+    value = int.from_bytes( field_bytes, byteorder="little")
 
-    return calculated_decimal
+    return value

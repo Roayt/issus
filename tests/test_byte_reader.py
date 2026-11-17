@@ -1,13 +1,17 @@
-from issus.byte_reader import byte_reader
+from issus.byte_reader import read_little_endian
 
 
-def test_byte():
-    byte = bytes.fromhex("e803")
-    t = byte_reader(byte, 0, 2)
-    assert t == 1000
-
+def test_two_size_byte():
+    data = bytes.fromhex("e803")
+    integer_value= read_little_endian(data, 0, 2)
+    assert integer_value == 1000
 
 def test_offset():
-    byte = bytes.fromhex("e85674aa")
-    t = byte_reader(byte, 1, 3)
-    assert t == 11170902
+    data = bytes.fromhex("e85674aa")
+    integer_value = read_little_endian(data, 1, 3)
+    assert integer_value == 11170902
+
+def test_four_size_byte():
+    data = bytes.fromhex("e85674aa")
+    integer_value = read_little_endian(data, 0, 4)
+    assert integer_value == 2859751144
