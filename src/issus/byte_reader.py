@@ -5,7 +5,7 @@ class OutOfBounds(Exception):
 def read_little_endian(data, offset, size):
 
     if offset + size > len(data):
-        raise OutOfBounds(f"the field: {offset + size} > data: {data}")
+        raise OutOfBounds(f"the field: {offset} + {size} > data: {len(data)}")
 
     field_bytes = data[offset : offset + size]
 
