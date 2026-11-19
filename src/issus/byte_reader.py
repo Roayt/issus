@@ -1,5 +1,4 @@
-class OutOfBounds(Exception):
-    pass
+from issus.elf_parser_error import OutOfBounds
 
 
 def read_little_endian(data, offset, size):
