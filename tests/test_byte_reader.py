@@ -1,6 +1,7 @@
 import pytest
 
-from issus.byte_reader import OutOfBounds, read_little_endian
+from issus.byte_reader import read_little_endian
+from issus.elf_parser_error import OutOfBounds
 
 
 def test_one_size_byte():
