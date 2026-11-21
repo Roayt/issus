@@ -18,8 +18,8 @@ def test_invalid_program_header():
     assert error_code == 23
 
 
-def test_section_notin_order():
-    section_notin_order = SectionNotInOrder()
-    error_code = to_elf_error(section_notin_order)
+def test_section_not_in_order():
+    section_not_in_order = SectionNotInOrder()
+    error_code = to_elf_error(section_not_in_order)
 
     assert error_code == 1
