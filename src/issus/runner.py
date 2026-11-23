@@ -42,7 +42,7 @@ def compare_fixtures(folder, prefix):
     for fixture_path in fixture_paths:
         parsed_fixture = parse_fixture(fixture_path)
         elf_data = parsed_fixture.input.elf_data
-        features = parsed_fixture.input.features.features
+        features = set(parsed_fixture.input.features.features)
         deploy_checks = parsed_fixture.input.deploy_checks
 
         try:
