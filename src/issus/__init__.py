@@ -25,8 +25,8 @@ def main():
 
     if args.command == "inspect":
         path = Path(args.file)
-        fixture_bytes = parse_fixture(path)
-        elf_header = take_elf_data(fixture_bytes)
+        parsed_fixture = parse_fixture(path)
+        elf_bytes = take_elf_data(parsed_fixture)
 
         (
             ei_mag,
@@ -49,7 +49,7 @@ def main():
             e_shentsize,
             e_shnum,
             e_shstrndx,
-        ) = parse_elf_value(elf_header)
+        ) = parse_elf_value(elf_bytes)
         print(
             f"ei_mag:{ei_mag}\n"
             f"ei_class:{ei_class}\n"
