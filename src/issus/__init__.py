@@ -4,6 +4,7 @@ from collections import Counter
 from pathlib import Path
 
 from issus.elf_header import parse_elf_value, take_elf_data
+from issus.elf_program_header import parse_program_elf_value
 from issus.fixture import parse_fixture
 from issus.runner import compare_fixtures, count_err_codes
 
@@ -50,6 +51,7 @@ def main():
             e_shnum,
             e_shstrndx,
         ) = parse_elf_value(elf_bytes)
+
         print(
             f"ei_mag:{ei_mag}\n"
             f"ei_class:{ei_class}\n"
@@ -73,7 +75,31 @@ def main():
             f"e_shstrndx:{e_shstrndx}\n"
         )
 
-    else:
+        for i in range(e_phnum):
+            start = e_phoff + (i * e_phentsize)
+
+            (
+                p_type,
+                p_flags,
+                p_offset,
+                p_vaddar,
+                p_paddar,
+                p_filesz,
+                p_memsz,
+                p_align,
+            ) = parse_program_elf_value(elf_bytes, start)
+            print(
+                "Program Header:\n"
+                f"p_type:{p_type}\n"
+                f"p_flags:{p_flags}\n"
+                f"p_offset:{p_offset}\n"
+                f"p_vaddar:{p_vaddar}\n"
+                f"p_paddar:{p_paddar}\n"
+                f"p_filesz:{p_filesz}\n"
+                f"p_memsz:{p_memsz}\n"
+                f"p_align:{p_align}\n"
+            )
+    if args.command == "run":
         err_code_counts = count_err_codes(args.folder, args.only)
         outcome_counts, failures = compare_fixtures(args.folder, args.only)
 
